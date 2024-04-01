@@ -1,12 +1,29 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Provider/Provider";
 
 const Register = () => {
+
+  // call the function
+  const {createUser} = useContext( AuthContext );
+
+  // console.log(authInfo, 'from hijibiji function');
+
     const handleRegister =(e)=>{
         e.preventDefault();
         const name = e.target.name.value;
         const email = e.target.email.value ;
         const password = e.target.password.value;
         console.log(name, email, password);
+
+        
+        createUser(email, password)
+        .then(result => {
+          console.log(result.user)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
     return (
         <div>
@@ -59,7 +76,7 @@ const Register = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn btn-primary">Register</button>
               </div>
             </form>
             <div>
